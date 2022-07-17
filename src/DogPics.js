@@ -4,24 +4,24 @@ import React, { useState, useEffect } from "react";
 // to fix, pass an empty array as the second argument for useEffect
 function DogPics() {
   const [images, setImages] = useState([]);
+  const [count, setCount]  = useState(0)
 
   useEffect(() => {
-    console.log("useEffect");
     fetch("https://dog.ceo/api/breeds/image/random/3")
       .then((r) => r.json())
       .then((data) => {
-        console.log("setState");
         setImages(data.message);
       });
-  });
+  },[]);
 
   console.log("render");
 
   return (
     <div>
       {images.map((image) => (
-        <img src={image} key={image} />
+        <img src={image} key={image}  alt={"new dog"}/>
       ))}
+      <button onClick={() => setCount( count => count + 1)}>click me :{count}</button>
     </div>
   );
 }
